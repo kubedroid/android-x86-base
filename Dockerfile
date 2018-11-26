@@ -1,7 +1,7 @@
 FROM quay.io/quamotion/android-x86-tools
 
-ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-6.0-r3.iso
-ENV ISO_FILE=android-x86_64-6.0-r3.iso
+ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-5.1-rc1.iso
+ENV ISO_FILE=android-x86_64-5.1-rc1.iso
 
 WORKDIR /android
 
