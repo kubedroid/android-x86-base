@@ -12,11 +12,10 @@ WORKDIR /android
 # to keep the command happy.
 COPY *.img Dockerfile ./
 RUN if [ ! -f $ISO_FILE ]; then wget -nc $ISO_URL -O $ISO_FILE; fi \
-
 #
 # Extract the root file system
 #
-&& isoinfo -i $ISO_FILE -x /system.sfs > system.sfs \
+&& fatcat $ISO_FILE -O $((2048 * 512)) -r /SYSTEM.SFS > system.sfs \
 && unsquashfs -f -d . system.sfs system.img \
 && mkdir system \
 && ext2rd system.img ./:system \
@@ -25,21 +24,21 @@ RUN if [ ! -f $ISO_FILE ]; then wget -nc $ISO_URL -O $ISO_FILE; fi \
 #
 # Extract the initrd image
 #
-&& isoinfo -i $ISO_FILE -x /initrd.img > initrd.img \
+&& fatcat $ISO_FILE -O $((2048 * 512)) -r /INITRD.IMG > initrd.img \
 && mkdir initrd \
 && (cd initrd && zcat ../initrd.img | cpio -idv) \
 && rm initrd.img \
 #
 # Extract the ramdisk image
 #
-&& isoinfo -i $ISO_FILE -x /ramdisk.img > ramdisk.img \
+&& fatcat $ISO_FILE -O $((2048 * 512)) -r /RAMDISK.IMG > ramdisk.img \
 && mkdir ramdisk \
 && (cd ramdisk && zcat ../ramdisk.img | cpio -idv) \
 && rm ramdisk.img \
 #
 # Extract the kernel
 #
-&& isoinfo -i $ISO_FILE -x /kernel > kernel \
+&& fatcat $ISO_FILE -O $((2048 * 512)) -r /KERNEL > kernel \
 #
 # Remove the ISO file
 #
