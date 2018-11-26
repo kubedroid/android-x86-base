@@ -1,7 +1,7 @@
 FROM quay.io/quamotion/android-x86-tools
 
-ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-5.1-rc1.iso
-ENV ISO_FILE=android-x86_64-5.1-rc1.iso
+ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-5.1-rc1.img
+ENV ISO_FILE=android-x86_64-5.1-rc1.img
 
 WORKDIR /android
 
@@ -10,7 +10,7 @@ WORKDIR /android
 # We don't need the Dockerfile, but COPY fails if there are no files
 # to copy (e.g. the iso file doesn't exist). Adding the Dockerfile
 # to keep the command happy.
-COPY *.iso Dockerfile ./
+COPY *.img Dockerfile ./
 RUN if [ ! -f $ISO_FILE ]; then wget -nc $ISO_URL -O $ISO_FILE; fi \
 
 #
