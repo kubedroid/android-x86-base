@@ -1,4 +1,4 @@
-FROM quay.io/quamotion/android-x86-tools
+FROM quay.io/kubedroid/android-x86-tools
 
 ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-7.1-r2.iso
 ENV ISO_FILE=android-x86_64-7.1-r2.iso
