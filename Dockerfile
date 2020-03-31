@@ -1,7 +1,7 @@
 FROM quay.io/kubedroid/android-x86-tools
 
-ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-7.1-r2.iso
-ENV ISO_FILE=android-x86_64-7.1-r2.iso
+ENV ISO_URL=https://osdn.net/dl/android-x86/android-x86_64-9.0-r2.iso
+ENV ISO_FILE=android-x86_64-9.0-r2.iso
 
 WORKDIR /android
 
@@ -10,9 +10,8 @@ WORKDIR /android
 # We don't need the Dockerfile, but COPY fails if there are no files
 # to copy (e.g. the iso file doesn't exist). Adding the Dockerfile
 # to keep the command happy.
-COPY *.iso Dockerfile ./
+COPY android-*-9.0-r2.iso Dockerfile ./
 RUN if [ ! -f $ISO_FILE ]; then wget -nc $ISO_URL -O $ISO_FILE; fi \
-
 #
 # Extract the root file system
 #
@@ -41,6 +40,7 @@ RUN if [ ! -f $ISO_FILE ]; then wget -nc $ISO_URL -O $ISO_FILE; fi \
 #
 && isoinfo -i $ISO_FILE -x /kernel > kernel \
 #
-# Remove the ISO file
+# Remove the ISO file and Dockerfile
 #
-&& rm $ISO_FILE
+&& rm $ISO_FILE \
+&& rm Dockerfile
